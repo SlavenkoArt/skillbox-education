@@ -5,7 +5,7 @@ index_sum = 0
 index_num = []
 
 for _ in range(N):
-    print('Введите', _ + 1, 'число:')
+    print('Введите', _ + 1, 'число:', end=' ')
     num = int(input())
     list_num.append(num)
 
