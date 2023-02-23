@@ -22,7 +22,7 @@ def check_info(data):
 
     print(f'Тип данных: {type_of_data} ({name_of_data})')
     print(property_of_data)
-    print("Id объектаЖ:", id(data))
+    print("Id объекта:", id(data))
 
 
 data_in = "Привет"
