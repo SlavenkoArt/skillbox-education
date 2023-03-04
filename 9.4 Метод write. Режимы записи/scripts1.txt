@@ -1,0 +1,6 @@
+/Users/artemslavenko/Desktop/Python_Basic/Module14/05_least_divisor/README.md
+/Users/artemslavenko/Desktop/Python_Basic/Module14/01_os_info/README.md
+/Users/artemslavenko/Desktop/Python_Basic/Module14/04_reverse_num/README.md
+/Users/artemslavenko/Desktop/Python_Basic/Module14/03_sum_and_dif/README.md
+/Users/artemslavenko/Desktop/Python_Basic/Module14/.DS_Store
+/Users/artemslavenko/Desktop/Python_Basic/.DS_Store
