@@ -25,7 +25,10 @@ class Citizen(Unit):
 
 soldier = Soldier(200)
 citizen = Citizen(100)
-soldier.get_damage(120)
+while soldier.get_hp() > 0:
+    soldier.get_damage(1)
+    print(soldier.get_hp())
+
 citizen.get_damage(50)
-print(soldier.get_hp())
+
 print(citizen.get_hp())
