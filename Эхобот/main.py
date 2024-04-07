@@ -1,24 +1,11 @@
-# money = 1000000
-# pircent = 14
-# finish = 10000000
-# count = 0
-#
-# while money <= finish:
-#     for _ in range(12):
-#         if money < finish:
-#             money += 60000
-#             print('процент за {}'.format(count), (money / 100) * (pircent / 12))
-#             money += (money / 100) * (pircent / 12)
-#             count += 1
-#             print(money)
-#         else:
-#             break
-#
-# print(count)
-# print(count / 12)
-# print(money)
+import telebot
+from telebot import types
 
-language_list = {"русский": "ru", "азербайджанский": "az", "албанский":	"sq", "амхарский":	"am",
+token = "6642246917:AAEIfJex-1UTohVqpiJzcW1Pyi_MuvMVwKo"
+
+bot = telebot.TeleBot(token)
+
+language_list = {"русский": "ru", "азербайджанский": "az", "албанский": "sq", "амхарский": "am",
                  "английский": "en", "арабский": "ar", "армянский": "hy", "африкаанс": "af",
                  "баскский": "eu", "башкирский": "ba", "белорусский": "be", "бенгальский": "bn",
                  "бирманский": "my", "болгарский": "bg", "боснийский": "bs", "валлийский": "cy",
@@ -43,11 +30,42 @@ language_list = {"русский": "ru", "азербайджанский": "az",
                  "чешский": "cs", "шведский": "sv", "шотландский": "gd", "эстонский": "et",
                  "эсперанто": "eo", "яванский": "jv", "японский": "ja"}
 
+body = {
+    "targetLanguageCode": "",
+    "texts": "",
+    "folderId": "",
+}
 
-# for i in language_list.keys():
-#     print(i[''])
+new_dict = {}
 
-for key in language_list.keys():
-    print(language_list[key])
-    print(key)
-print()
+
+@bot.message_handler(commands=['help', 'start'])
+def send_welcome(message):
+    bot.reply_to(message, f'Привет {message.from_user.first_name}.')
+    markup = types.InlineKeyboardMarkup()
+    for elem in language_list:
+        markup.add(telebot.types.InlineKeyboardButton(f'{elem}', callback_data=f"{elem}"))
+    bot.send_message(message.chat.id, 'Выберите язык', reply_markup=markup)
+
+
+@bot.callback_query_handler(func=lambda call: True)
+def callback_inline(call):
+    chosen_language = language_list.get(call.data)
+    if chosen_language:
+        new_dict[call.message.chat.id] = chosen_language
+        bot.send_message(call.message.chat.id, f'Выбран язык: {new_dict})\n Введите текст: ')
+    else:
+        bot.send_message(call.message.chat.id, f'Выбран недопустимый язык {chosen_language}')
+
+
+@bot.message_handler(content_types=['text'])
+def echo_all(message):
+    new_dict["text"] = message.text
+    bot.send_message(message.chat.id, f"Введенный текст: {new_dict}")
+
+
+
+
+
+
+bot.infinity_polling()
